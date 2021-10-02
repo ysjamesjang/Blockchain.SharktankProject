@@ -14,8 +14,8 @@ contract PaymentChannel{
     }
 
 
-    // the seller can close the channel at any time by presenting a
-    // and the remainder will go back to the sender
+    // the seller can close the channel at any time 
+    // and the remainder will go back to the buyer
     function close(uint256 amount) public {
         require(msg.sender == seller);
         seller.transfer(amount);
@@ -31,7 +31,7 @@ contract PaymentChannel{
     }
 
     // if the timeout is reached without the seller closing the channel,
-    // then the Ether is released back to the sender.
+    // then the Ether is released back to the buyer.
     function claimTimeout() public {
         require(now >= expiration);
         selfdestruct(buyer);
