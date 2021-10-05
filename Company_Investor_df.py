@@ -6,16 +6,31 @@ import datetime as dt
 import streamlit as st
 pd.set_option('display.max_colwidth', None)
 
+st.sidebar.title("GET FUNDING")
+
 st.title("Shark Tank Smart Contract Marketplace")
 
-st.write("Are you in need of a place to help find funding for your project or venture? The Shark Tank Marketplace is your place to find funding. From a single investor or a bunch of small investors, the Shark Tank Marketplace utilizes Smart Contracts to secure future deals in stone on the blockchain.")
+st.write("Are you in need of funding for your next project or venture? The Shark Tank Marketplace is your place to find funding. From a single investor or a bunch of small investors, the Shark Tank Marketplace utilizes Smart Contracts to secure future deals in stone on the blockchain.")
 
-level1 = st.slider("How much money are you looking to raise?", 1000,500000)
+st.markdown("---")
 
-level2 = st.slider("How much equity percentage (%) are you providing to the investors?", 1,100)
+st.sidebar.text_input('Input your Company Name here:')
 
-st.sidebar.title("For investors")
-level3 = st.sidebar.slider("How much money are you looking to invest?", 1000,500000)
+st.sidebar.text_input('Input your company webpage here:')
+
+st.sidebar.text_input('Input your company slogan or pitch here:')
+
+st.sidebar.text_input('Input details about your company here:')
+
+st.sidebar.slider("How much money are you looking to raise?", 1000,1000000)
+
+st.sidebar.slider("How much equity percentage (%) are you providing to the investors?", 1,100)
+
+st.title("START INVESTING")
+
+st.title("For investors")
+
+st.level3 = st.slider("How much money are you looking to invest?", 1000,1000000)
 
 # Creating a list of companies and assigning to a dataframe. Companies found on https://startupschicago.net/.
 Companies = {'Company': ['Parser.run'
@@ -167,5 +182,44 @@ investors = {'Anonymous Investor A' : 'Sales/Marketing/Merchandising'
 concatenated['Investor'] = np.random.choice(list(investors),len(concatenated))
 concatenated['Investor Network & Expertise'] = concatenated['Investor'].map(investors)
 
-# Displaying the final dataframe.
-concatenated
+option = st.selectbox("Please select a company you would like to invest in.",sorted(concatenated['Company'].unique()))
+
+st.markdown("---")
+
+st.subheader(concatenated[concatenated['Company']==option]['Company'].iloc[0])
+
+st.markdown('**Pitch/Slogan**')
+
+st.write(concatenated[concatenated['Company']==option]['Slogan/Pitch'].iloc[0])
+
+st.markdown('**About**')
+
+st.write(concatenated[concatenated['Company']==option]['About'].iloc[0])
+
+st.markdown('**Website**')
+
+st.write(concatenated[concatenated['Company']==option]['Website'].iloc[0])
+
+st.markdown('**Capital Seeking (USD)**')
+
+st.write(concatenated[concatenated['Company']==option]['Capital Seeking in USD'].iloc[0])
+
+st.markdown('**Equity Stake (%)**')
+
+st.write(concatenated[concatenated['Company']==option]['% Equity Stake'].iloc[0])
+
+st.markdown('**Approx. Company Valuation (USD)**')
+
+st.write(concatenated[concatenated['Company']==option]['Approx. Company Valuation in USD'].iloc[0])
+
+st.markdown('**Business Rating**')
+
+st.write(concatenated[concatenated['Company']==option]['Business Rating'].iloc[0])
+
+st.markdown('**Investor**')
+
+st.write(concatenated[concatenated['Company']==option]['Investor'].iloc[0])
+
+st.markdown('**Investor(s) Network & Expertise**')
+
+st.write(concatenated[concatenated['Company']==option]['Investor Network & Expertise'].iloc[0])
